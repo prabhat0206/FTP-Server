@@ -4,7 +4,7 @@ import { config } from "dotenv";
 config();
 
 const ftpServer = new FtpSrv({
-  url: `ftp://${process.env.IP_ADDRESS}:21`,
+  url: `ftp://${process.env.IP_ADDRESS}:${process.env.PORT}`,
 });
 
 ftpServer.on("login", (data, resolve, reject) => {
@@ -20,6 +20,11 @@ ftpServer.on("login", (data, resolve, reject) => {
   }
 });
 
+ftpServer.on("client-error", ({connection, context, error}) => {
+  console.log("Client error", error);
+});
+
+
 ftpServer.listen().then(() => {
-  console.log("Listening on port 21");
+  console.log("Listening on port", process.env.PORT);
 });
