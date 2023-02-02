@@ -4,7 +4,7 @@ import { config } from "dotenv";
 config();
 
 const ftpServer = new FtpSrv({
-  url: "ftp://0.0.0.0:21",
+  url: `ftp://${process.env.IP_ADDRESS}:21`,
 });
 
 ftpServer.on("login", (data, resolve, reject) => {
